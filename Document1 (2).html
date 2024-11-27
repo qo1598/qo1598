@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>방향키 퍼즐</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        * {
+            font-family: 'Nanum Pen Script', cursive;
+        }
+        .arrow-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 5px;
+            background: #ffffff;
+            border: 2px solid #007bff;
+            box-shadow: 3px 6px 0 rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .arrow-btn:active {
+            box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+            transform: translateY(4px);
+        }
+        .arrow-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: #007bff;
+        }
+        #result {
+            width: 183px;
+            height: 50px;
+            margin: 5px;
+            text-align: right;
+        }
+        .control-btn {
+            font-size: 24px !important;
+            margin: 10px;
+        }
+        .arrows-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .arrow-row {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <form style="margin-left: 35%; margin-top: 10%;" id="form">
+        <div class="arrows-container">
+            <div class="arrow-row">
+                <button type="button" class="arrow-btn" id="up">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 4l-8 8h6v8h4v-8h6z"/>
+                    </svg>
+                    u
+                </button>
+            </div>
+            <div class="arrow-row">
+                <button type="button" class="arrow-btn" id="left">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 12l8-8v6h8v4h-8v6z"/>
+                    </svg>
+                    l
+                </button>
+                <button type="button" class="arrow-btn" id="down">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 20l8-8h-6V4h-4v8H4z"/>
+                    </svg>
+                    d
+                </button>
+                <button type="button" class="arrow-btn" id="right">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 12l-8-8v6H4v4h8v6z"/>
+                    </svg>
+                    r
+                </button>
+            </div>
+        </div>
+        
+        <div class="input-group flex-nowrap" style="width: 228px;">
+            <button type="button" class="btn btn-secondary control-btn" id="clear" style="width: 150px; margin-right: 10px;">Clear</button>
+            <button type="button" class="btn btn-secondary control-btn" id="enter" style="width: 150px;">Enter</button>
+        </div>
+        
+        <input readonly type="text" id="result" class="form-control" style="display: none;">
+        <textarea readonly id="solution" class="form-control" style="display: none; font-size: 38px">
+            노트에 뭔가 적혀있었던거 같긴한데..
+            I think I saw something in note
+        </textarea>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            const $result = $('#result');
+            const $solution = $('#solution');
+
+            $('.arrow-btn').click(function() {
+                $result.val($result.val() + $(this).text().trim());
+            });
+
+            $('#enter').click(function() {
+                if ($result.val() === 'lldrr') {
+                    $solution.show();
+                    $('.arrow-btn, #enter, #clear').hide();
+                    alert('성공!');
+                } else {
+                    alert('삐이이이------');
+                }
+                $result.val('');
+            });
+
+            $('#clear').click(function() {
+                $result.val('');
+            });
+
+            $('#form').submit(function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
